@@ -1,33 +1,61 @@
-# Turog Dashboard Experience
+# Turog Technical Assessment - Dashboard Pilet
 
-This repository contains:
+This repository contains my implementation of the Senior React Developer technical assessment for Turog. The solution demonstrates a microfrontend dashboard using Piral, implementing modern React practices, component architecture, and efficient state management.
 
-- `my-pilet/` – the feature-rich Piral pilet that implements the Nigerian content dashboard.
-- `react-piral-int/` – the lightweight Piral app shell used to emulate the host environment during development.
+## Project Overview
 
-The pilet-specific documentation lives in [`my-pilet/README.md`](my-pilet/README.md). The sections below describe how both folders work together for local development, review, and deployment.
+The repository is structured into two main components:
 
----
+- `my-pilet/` - The primary dashboard implementation containing components, hooks, and layouts
+- `react-piral-int/` - The Piral development shell for testing and debugging
 
-## At a Glance
-
-- **Architecture:** React 18 + TypeScript pilet plugged into a Piral shell.
-- **Experience:** Latest-post hero, paginated archive, responsive modals, optimistic creation flow, tailored Naija copywriting.
-- **Styling:** Tailwind utility classes delivered via CDN in debug mode; host shell supplies the dark chrome.
-- **Data:** Live fetch from `jsonplaceholder.typicode.com` with curated fallbacks and loading skeletons.
-
-For deeper UI and component details, read [`my-pilet/README.md`](my-pilet/README.md).
+For detailed implementation documentation, refer to [`my-pilet/README.md`](my-pilet/README.md).
 
 ---
 
-## Repository Layout
+## Technical Implementation
+
+The solution implements all required features from the assessment:
+
+1. **Piral Integration**
+   - Registered route at `/dashboard`
+   - Implemented Dashboard menu item
+   - Proper pilet lifecycle management
+
+2. **Data Management**
+   - Integrated with JSONPlaceholder API
+   - Implemented paginated data display (10 items per page)
+   - Modal-based detail view implementation
+   - Optimistic updates for new item creation
+
+3. **Component Architecture**
+   - Reusable component library including ItemCard and Modal
+   - TypeScript implementation for type safety
+   - Modern React patterns with hooks and functional components
+
+4. **UI/UX Features**
+   - Clean, professional interface using Tailwind CSS
+   - Responsive design across device sizes
+   - Optimized performance with lazy loading
+   - Proper loading states and error handling
+
+---
+
+## Project Structure
+
+The project follows a modular architecture:
 
 ```text
-my-pilet/           # Primary pilet (dashboard UI, hooks, reusable components)
-react-piral-int/    # Development shell that serves and bundles the pilet
+my-pilet/
+  src/
+    components/     # Reusable UI components (ItemCard, Modal, Pagination)
+    hooks/         # Custom hooks for data fetching and state management
+    pages/         # Route components and page layouts
+    index.tsx      # Pilet entry point and Piral integration
+react-piral-int/   # Development shell for testing and debugging
 ```
 
-The pilet’s `package.json` references the emulator tarball produced by `react-piral-int/dist/emulator`. Rebuild the shell whenever you change host styling or layout so the pilet inherits fresh assets.
+Note: Any modifications to the shell configuration in `react-piral-int` require rebuilding to update the emulator tarball.
 
 ---
 

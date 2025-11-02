@@ -8,10 +8,7 @@ import Pagination from '../components/Pagination';
 const ITEMS_PER_PAGE = 10;
 
 const DashboardPage: React.FC = () => {
-  // 1. Get all logic and state from our custom hook
   const { posts, isLoading, error, addPost } = usePosts();
-
-  // 2. Local UI state for the page
   const [currentPage, setCurrentPage] = React.useState(1);
   const [selectedPost, setSelectedPost] = React.useState<Post | null>(null);
 

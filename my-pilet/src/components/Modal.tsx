@@ -20,7 +20,6 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, 
     return null;
   }
 
-  // Handle clicks on the backdrop to close the modal
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       onClose();
