@@ -139,7 +139,7 @@ const DashboardPage: React.FC = () => {
 
   // 7. Render the UI
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen overflow-y-auto bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="mb-12">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
@@ -475,7 +475,7 @@ const DashboardPage: React.FC = () => {
                       maxLength={120}
                       value={title}
                       onChange={(e) => setTitle(e.target.value)}
-                      className="block w-full rounded-xl border border-slate-600 bg-slate-900/60 px-4 py-3 text-slate-200 shadow-sm transition focus:border-transparent focus:outline-none focus:ring-2 focus:ring-emerald-500 placeholder-slate-500"
+                      className="block w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-slate-200 shadow-sm transition focus:border-transparent focus:outline-none focus:ring-2 focus:ring-emerald-500 placeholder-slate-500"
                       placeholder="E.g. Lagos Tech Hub Attracts Global Investors"
                       required
                     />
@@ -498,7 +498,7 @@ const DashboardPage: React.FC = () => {
                       value={body}
                       onChange={(e) => setBody(e.target.value)}
                       rows={6}
-                      className="block w-full resize-none rounded-xl border border-slate-600 bg-slate-900/60 px-4 py-3 text-slate-200 shadow-sm transition focus:border-transparent focus:outline-none focus:ring-2 focus:ring-emerald-500 placeholder-slate-500"
+                      className="block w-full resize-none rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-slate-200 shadow-sm transition focus:border-transparent focus:outline-none focus:ring-2 focus:ring-emerald-500 placeholder-slate-500"
                       placeholder="Paint the full picture. What's happening? Who does it impact? Why does it matter?"
                       required
                     />
@@ -508,7 +508,7 @@ const DashboardPage: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="rounded-2xl border border-slate-700 bg-slate-900/40 px-4 py-3 text-xs text-slate-400">
+              <div className="rounded-2xl border border-slate-700 bg-slate-900 px-4 py-3 text-xs text-slate-400">
                 Pro tip: Lean into authentic Naija stories - food, fashion, tech, culture - to keep the dashboard vibrant.
               </div>
             </form>

@@ -30,11 +30,11 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, 
     <>
       {/* Backdrop with blur effect */}
       <div
-        className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-slate-950/70 backdrop-blur-xl p-4 sm:p-6 lg:p-8"
+        className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-slate-950/70 backdrop-blur-xl p-4 sm:p-6 lg:p-8"
         onClick={handleBackdropClick}>
-  <div className="relative flex w-full max-w-3xl flex-col overflow-hidden rounded-2xl border border-slate-700 bg-slate-950/90 shadow-2xl shadow-emerald-500/10 transition-all duration-200 max-h-[calc(100vh-2rem)] sm:max-h-[calc(100vh-4rem)]">
-          <div className="absolute -top-16 -left-20 h-40 w-40 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 opacity-10 blur-3xl" />
-          <div className="absolute -bottom-24 -right-24 h-48 w-48 rounded-full bg-gradient-to-r from-emerald-500 to-blue-500 opacity-10 blur-3xl" />
+        <div className="relative my-auto flex w-full max-w-3xl flex-col overflow-hidden rounded-2xl border border-slate-700 bg-slate-950 shadow-2xl shadow-emerald-500/10 transition-all duration-200 max-h-[calc(100vh-2rem)] sm:max-h-[calc(100vh-4rem)]">
+          <div className="absolute -top-16 -left-20 h-40 w-40 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 opacity-5 blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-24 -right-24 h-48 w-48 rounded-full bg-gradient-to-r from-emerald-500 to-blue-500 opacity-5 blur-3xl pointer-events-none" />
 
           <div className="relative border-b border-slate-800/70 px-5 py-4 sm:px-8 sm:py-6">
             <div className="flex items-start justify-between gap-4">
@@ -81,13 +81,13 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, 
             </div>
           </div>
 
-          <div className="relative flex-1 overflow-y-auto px-5 py-5 sm:px-8 sm:py-6">
-            <div className={bodyClassName ?? 'prose prose-invert prose-lg max-w-none prose-headings:text-slate-200 prose-p:text-slate-300'}>
+          <div className="relative flex-1 overflow-y-auto modal-content px-5 py-5 sm:px-8 sm:py-6 bg-slate-950">
+            <div className={bodyClassName ?? 'prose prose-invert prose-lg max-w-none prose-headings:text-slate-100 prose-p:text-slate-200'}>
               {children}
             </div>
           </div>
 
-          <div className="relative border-t border-slate-800/70 bg-slate-900/60 px-5 py-4 sm:px-8 sm:py-5">
+          <div className="relative border-t border-slate-800 bg-slate-950 px-5 py-4 sm:px-8 sm:py-5">
             {footer ?? (
               <div className="flex justify-end gap-3">
                 <button

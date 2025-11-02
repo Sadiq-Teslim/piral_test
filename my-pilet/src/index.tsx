@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import type { PiletApi } from 'react-piral-int';
-
 import './index.css';
 
 const DashboardPage = React.lazy(() => import('./pages/DashboardPage'));

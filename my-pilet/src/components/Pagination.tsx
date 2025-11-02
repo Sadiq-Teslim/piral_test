@@ -15,10 +15,39 @@ const Pagination: React.FC<PaginationProps> = ({
 }) => {
   const totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage));
 
-  // Generate page numbers array
-  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const getVisiblePages = () => {
+    const delta = window.innerWidth < 640 ? 1 : 2; // Show fewer pages on mobile
+    const range = [];
+    const rangeWithDots = [];
+    let l;
+
+    for (let i = 1; i <= totalPages; i++) {
+      if (
+        i === 1 ||
+        i === totalPages ||
+        (i >= currentPage - delta && i <= currentPage + delta)
+      ) {
+        range.push(i);
+      }
+    }
+
+    range.forEach((i) => {
+      if (l) {
+        if (i - l === 2) {
+          rangeWithDots.push(l + 1);
+        } else if (i - l !== 1) {
+          rangeWithDots.push('...');
+        }
+      }
+      rangeWithDots.push(i);
+      l = i;
+    });
+
+    return rangeWithDots;
+  };
+
   const baseButtonClass =
-    'relative inline-flex items-center px-3 py-2 text-sm font-medium transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900';
+    'relative inline-flex items-center px-2 sm:px-3 py-2 text-sm font-medium transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900';
 
   return (
     <div className="flex justify-center mt-8">
@@ -50,18 +79,24 @@ const Pagination: React.FC<PaginationProps> = ({
         </button>
 
         {/* Page Numbers */}
-        {pageNumbers.map((number) => (
-          <button
-            key={number}
-            onClick={() => onPageChange(number)}
-            aria-current={currentPage === number ? 'page' : undefined}
-            className={`${baseButtonClass} border-r border-slate-700 ${
-              currentPage === number
-                ? 'z-10 bg-gradient-to-r from-emerald-500/30 to-emerald-500/10 text-emerald-300'
-                : 'text-slate-300 hover:bg-slate-800'
-            }`}>
-            {number}
-          </button>
+        {getVisiblePages().map((item, index) => (
+          typeof item === 'number' ? (
+            <button
+              key={index}
+              onClick={() => onPageChange(item)}
+              aria-current={currentPage === item ? 'page' : undefined}
+              className={`${baseButtonClass} border-r border-slate-700 ${
+                currentPage === item
+                  ? 'z-10 bg-gradient-to-r from-emerald-500/30 to-emerald-500/10 text-emerald-300'
+                  : 'text-slate-300 hover:bg-slate-800'
+              }`}>
+              {item}
+            </button>
+          ) : (
+            <span key={index} className={`${baseButtonClass} border-r border-slate-700 text-slate-600`}>
+              {item}
+            </span>
+          )
         ))}
 
         {/* Next Page Button */}
