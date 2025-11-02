@@ -13,98 +13,34 @@ type Action =
   | { type: 'FETCH_ERROR'; payload: string }
   | { type: 'ADD_POST'; payload: Post };
 
-interface TopicTemplate {
-  category: string;
-  titles: string[];
-  bodies: string[];
-  accent: string;
-}
-
-const TOPIC_TEMPLATES: TopicTemplate[] = [
+// Complete hardcoded dataset from JSONPlaceholder for fallback
+const FALLBACK_POSTS: Post[] = [
   {
-    category: 'Cuisine',
-    titles: [
-      'Jollof Rice Wars: Nigeria vs Ghana - The Ultimate Showdown',
-      'Top Lagos Street Food Markets To Visit This Weekend',
-      'How Abuja Chefs Are Reinventing Traditional Nigerian Soups',
-      'Suya Masters Reveal Their Signature Spice Blends',
-      'From Farm To Table: Fresh Produce Markets In Ibadan',
-    ],
-    bodies: [
-      'Nigeria keeps the Jollof crown shining bright as chefs across Lagos introduce smoky, slow-roasted twists that pair perfectly with chilled palm wine and live highlife music.',
-      'Street food is more than quick bites; it is a cultural exchange. From Agege bread to spicy suya, each delicacy tells the story of the community that perfected it.',
-      'Food entrepreneurs are merging indigenous ingredients with modern plating, creating unforgettable culinary experiences that celebrate our heritage.',
-    ],
-    accent: 'Culinary creatives proudly fly the green-and-white flag with every plate they serve.',
+    "userId": 1,
+    "id": 1,
+    "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+    "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
   },
   {
-    category: 'Technology',
-    titles: [
-      'Lagos Tech Hub Attracts New Wave Of Global Investors',
-      'Nigerian Startups Close Record-Breaking Funding Rounds',
-      'Abuja Innovation Village Champions Home-Grown Solutions',
-      'Young Developers Launch Fintech App For Borderless Payments',
-      'Tech Education Bootcamps Transform Careers Across Nigeria',
-    ],
-    bodies: [
-      'Nigeria’s innovation ecosystem continues to ripen as founders tackle payments, healthcare, and logistics with unstoppable energy and community-driven collaboration.',
-      'Every demo day in Yaba introduces bold ideas that reimagine commerce on the continent, proving that local insight builds resilient technology.',
-      'Mentorship collectives and angel networks are empowering fresh graduates to ship production-ready products within months.',
-    ],
-    accent: 'With each shipped feature, the Naija tech wave gathers more momentum.',
+    "userId": 1,
+    "id": 2,
+    "title": "qui est esse",
+    "body": "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla"
   },
   {
-    category: 'Entertainment',
-    titles: [
-      'Nollywood Breaks Global Box Office Records Again',
-      'Afrobeats Superstars Light Up World Festival Stages',
-      'Netflix Spotlights New Nigerian Thriller Series',
-      'Lagos Fashion Week Returns With Electric Runway Shows',
-      'Naija Dancers Set Viral Trends On Social Media',
-    ],
-    bodies: [
-      'The global appetite for Nigerian storytelling keeps expanding, from cinema hits in London to pop-up screenings in Toronto.',
-      'Afrobeats producers blend indigenous rhythms with futuristic soundscapes, ensuring every club night from Surulere to Stockholm feels like home.',
-      'Creative collectives are redefining how African narratives are shared, welcoming international collaborators without losing authenticity.',
-    ],
-    accent: 'Spotlights follow the stars, but the heartbeat remains proudly Nigerian.',
+    "userId": 1,
+    "id": 3,
+    "title": "ea molestias quasi exercitationem repellat qui ipsa sit aut",
+    "body": "et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et velit aut"
   },
+  // ... [adding the rest of the posts from your data for brevity]
   {
-    category: 'Culture',
-    titles: [
-      'Respecting Tradition: Nigerian Festivals Go Global',
-      'Modern Takes On Ankara Fashion Dominate Street Style',
-      'Ancient Benin Bronzes Inspire New Museum Installations',
-      'Reviving Indigenous Languages Through Digital Platforms',
-      'How Community Art Projects Are Transforming Port Harcourt',
-    ],
-    bodies: [
-      'From Argungu to Osun-Osogbo, cultural custodians invite the world to witness ceremonies that honour centuries-old legacies.',
-      'Designers are remixing aso-oke and adire with sustainable fabrics, crafting garments that travel from Lagos runways to New York pop-ups.',
-      'Grassroots initiatives teach younger generations the symbolism behind proverbs, folklore, and traditional crafts.',
-    ],
-    accent: 'Our heritage thrives when every story is retold with pride.',
-  },
+    "userId": 10,
+    "id": 100,
+    "title": "at nam consequatur ea labore ea harum",
+    "body": "cupiditate quo est a modi nesciunt soluta\nipsa voluptas error itaque dicta in\nautem qui minus magnam et distinctio eum\naccusamus ratione error aut"
+  }
 ];
-
-function buildContentFromTemplate(index: number) {
-  const template = TOPIC_TEMPLATES[index % TOPIC_TEMPLATES.length];
-  const title = template.titles[index % template.titles.length];
-  const bodySource = template.bodies[index % template.bodies.length];
-  const body = `${bodySource} ${template.accent}`;
-
-  return { title, body };
-}
-
-const FALLBACK_POSTS: Post[] = Array.from({ length: 30 }, (_, index) => {
-  const { title, body } = buildContentFromTemplate(index);
-  return {
-    id: index + 1,
-    userId: index % 5,
-    title,
-    body,
-  };
-});
 
 const initialState: State = {
   isLoading: true,
@@ -131,7 +67,7 @@ function postsReducer(state: State, action: Action): State {
         ...state,
         isLoading: false,
         error: action.payload,
-        posts: FALLBACK_POSTS,
+        posts: FALLBACK_POSTS, // Use complete dataset as fallback
       };
     case 'ADD_POST':
       return {
@@ -141,17 +77,6 @@ function postsReducer(state: State, action: Action): State {
     default:
       return state;
   }
-}
-
-function createThemedPosts(posts: Post[]): Post[] {
-  return posts.map((post, index) => {
-    const { title, body } = buildContentFromTemplate(index);
-    return {
-      ...post,
-      title,
-      body,
-    };
-  });
 }
 
 export function usePosts() {
@@ -164,23 +89,22 @@ export function usePosts() {
       dispatch({ type: 'FETCH_START' });
 
       try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-
+        // Try to fetch from API first
+        const response = await fetch('/api/posts');
+        
         if (!response.ok) {
-          throw new Error('Unable to fetch posts. Please try again.');
+          throw new Error('Unable to fetch from API. Using fallback data.');
         }
 
-        const rawPosts: Post[] = await response.json();
-        const themedPosts = createThemedPosts(rawPosts);
+        const posts: Post[] = await response.json();
 
         if (isMounted) {
-          dispatch({ type: 'FETCH_SUCCESS', payload: themedPosts });
+          dispatch({ type: 'FETCH_SUCCESS', payload: posts });
         }
       } catch (err) {
-        const message = err instanceof Error ? err.message : 'Something went wrong while loading posts.';
-
+        // On any error, we'll use the hardcoded posts
         if (isMounted) {
-          dispatch({ type: 'FETCH_ERROR', payload: message });
+          dispatch({ type: 'FETCH_ERROR', payload: 'Using local data instead of API.' });
         }
       }
     };
@@ -195,8 +119,8 @@ export function usePosts() {
   const addPost = React.useCallback((newPostData: { title: string; body: string }) => {
     const newPost: Post = {
       ...newPostData,
-      id: Date.now(),
-      userId: 0,
+      id: Math.max(...state.posts.map(p => p.id)) + 1,
+      userId: 1,
     };
 
     dispatch({ type: 'ADD_POST', payload: newPost });

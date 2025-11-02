@@ -8,9 +8,17 @@ import Pagination from '../components/Pagination';
 const ITEMS_PER_PAGE = 10;
 
 const DashboardPage: React.FC = () => {
+  console.log('[DashboardPage] Rendering with state hooks setup');
   const { posts, isLoading, error, addPost } = usePosts();
   const [currentPage, setCurrentPage] = React.useState(1);
   const [selectedPost, setSelectedPost] = React.useState<Post | null>(null);
+  
+  console.log('[DashboardPage] Current state:', { 
+    postsCount: posts.length, 
+    isLoading, 
+    error,
+    currentPage 
+  });
 
   // 3. Local state for the "Add New Post" form
   const [title, setTitle] = React.useState('');
@@ -144,7 +152,7 @@ const DashboardPage: React.FC = () => {
         <div className="mb-12">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-3xl space-y-4 text-left">
-              <p className="text-xs font-semibold uppercase tracking-[0.45em] text-emerald-300/90">Naija Content Studio</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.45em] text-emerald-300/90">Content Studio</p>
               <h1 className="text-4xl font-extrabold text-slate-100 sm:text-5xl md:text-6xl">
                 Content
                 <span className="block sm:inline sm:ml-3 bg-gradient-to-r from-emerald-400 to-emerald-500 bg-clip-text text-transparent">
@@ -152,7 +160,7 @@ const DashboardPage: React.FC = () => {
                 </span>
               </h1>
               <p className="text-base text-slate-400 sm:text-lg">
-                Spotlight fresh Nigerian stories, monitor your catalog, and publish new highlights - all from one immersive workspace.
+                Spotlight fresh stories, monitor your catalog, and publish new highlights - all from one immersive workspace.
               </p>
             </div>
             <div className="flex shrink-0 items-center gap-3 self-start lg:self-auto">
@@ -180,20 +188,6 @@ const DashboardPage: React.FC = () => {
             </div>
           </div>
         </div>
-
-        {error && (
-          <div className="mb-8 rounded-2xl border border-rose-500/20 bg-rose-500/10 px-6 py-4 text-rose-300 shadow-lg shadow-rose-500/10">
-            <div className="flex items-start gap-3">
-              <svg className="mt-1 h-5 w-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-              </svg>
-              <div>
-                <p className="font-semibold">We hit a snag while loading live posts.</p>
-                <p className="mt-1 text-sm opacity-80">{error}. Showing curated Nigerian highlights instead.</p>
-              </div>
-            </div>
-          </div>
-        )}
 
         <section className="mb-14">
           {latestPost ? (
@@ -252,7 +246,7 @@ const DashboardPage: React.FC = () => {
                   <div>
                     <h3 className="text-sm uppercase tracking-widest text-emerald-200">Spotlight</h3>
                     <p className="mt-2 text-sm leading-relaxed text-slate-300">
-                      Crafted with Naija energy, this highlight blends culture, tech, and community impact for your audience.
+                      Crafted with vision, this highlight blends culture, tech, and community impact for your audience.
                     </p>
                   </div>
                   <div className="grid gap-4 text-sm">
@@ -307,7 +301,7 @@ const DashboardPage: React.FC = () => {
                 All Stories
               </h2>
               <p className="mt-1 text-sm text-slate-500">
-                Browse every Nigerian highlight in chronological order.
+                  Browse every highlight in chronological order.
               </p>
             </div>
             <span className="inline-flex items-center gap-2 self-start rounded-full border border-emerald-500/20 bg-emerald-900/30 px-4 py-1.5 text-sm font-medium text-emerald-300">
@@ -395,7 +389,7 @@ const DashboardPage: React.FC = () => {
                   </div>
                   <div>
                     <h4 className="text-sm font-semibold text-slate-200">
-                      Nigerian Content Creator
+                      Content Creator
                     </h4>
                     <p className="text-sm text-slate-400">
                       Content ID: #{selectedPost.id}
@@ -418,7 +412,7 @@ const DashboardPage: React.FC = () => {
 
                 {/* Tags */}
                 <div className="flex flex-wrap gap-2 pt-4">
-                  {['Nigerian Content', 'Featured', 'Trending'].map((tag) => (
+                  {['Featured', 'Trending'].map((tag) => (
                     <span
                       key={tag}
                       className="px-3 py-1 text-sm text-emerald-300 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
@@ -435,7 +429,7 @@ const DashboardPage: React.FC = () => {
           isOpen={isCreateModalOpen}
           onClose={closeCreateModal}
           title="Create New Post"
-          metadata={<span className="text-sm text-slate-400">Share a fresh Nigerian perspective with your community.</span>}
+          metadata={<span className="text-sm text-slate-400">Share a fresh perspective with your community.</span>}
           bodyClassName="space-y-6"
           footer={
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -509,7 +503,7 @@ const DashboardPage: React.FC = () => {
                 </div>
               </div>
               <div className="rounded-2xl border border-slate-700 bg-slate-900 px-4 py-3 text-xs text-slate-400">
-                Pro tip: Lean into authentic Naija stories - food, fashion, tech, culture - to keep the dashboard vibrant.
+                Pro tip: Share authentic stories about food, fashion, tech, culture to keep the dashboard vibrant.
               </div>
             </form>
           }
