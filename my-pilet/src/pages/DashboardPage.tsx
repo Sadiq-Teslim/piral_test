@@ -30,7 +30,7 @@ const DashboardPage: React.FC = () => {
   const pageTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const latestPost = posts.length > 0 ? posts[0] : null;
-  const remainingPosts = React.useMemo(() => (posts.length > 1 ? posts.slice(1) : []), [posts]);
+  const listPosts = React.useMemo(() => (posts.length > 1 ? posts.slice(1) : []), [posts]);
   const latestSnippet = React.useMemo(() => {
     if (!latestPost) {
       return '';
@@ -48,19 +48,19 @@ const DashboardPage: React.FC = () => {
     setBody('');
   }, []);
 
-  // 4. Pagination Logic with loading simulation (for remaining posts)
+  // 4. Pagination Logic with loading simulation
   const paginatedPosts = React.useMemo(() => {
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     const endIndex = startIndex + ITEMS_PER_PAGE;
-    return remainingPosts.slice(startIndex, endIndex);
-  }, [remainingPosts, currentPage]);
+    return listPosts.slice(startIndex, endIndex);
+  }, [listPosts, currentPage]);
 
   React.useEffect(() => {
-    const totalPages = Math.max(1, Math.ceil(remainingPosts.length / ITEMS_PER_PAGE));
+    const totalPages = Math.max(1, Math.ceil(listPosts.length / ITEMS_PER_PAGE));
     if (currentPage > totalPages) {
       setCurrentPage(totalPages);
     }
-  }, [remainingPosts.length, currentPage]);
+  }, [listPosts.length, currentPage]);
 
   // Handle page change with loading state
   const handlePageChange = React.useCallback((page: number) => {
@@ -308,7 +308,7 @@ const DashboardPage: React.FC = () => {
               <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 8 8">
                 <circle cx="4" cy="4" r="4" />
               </svg>
-              {remainingPosts.length} more stories
+              {listPosts.length} stories
             </span>
           </div>
           
@@ -361,11 +361,11 @@ const DashboardPage: React.FC = () => {
         </section>
 
         {/* Pagination Section */}
-        {remainingPosts.length > 0 && (
+          {listPosts.length > ITEMS_PER_PAGE && (
           <div className="mt-8">
             <Pagination
               currentPage={currentPage}
-              totalItems={remainingPosts.length}
+                totalItems={listPosts.length}
               itemsPerPage={ITEMS_PER_PAGE}
               onPageChange={handlePageChange}
             />
