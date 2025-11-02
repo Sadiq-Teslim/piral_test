@@ -47,7 +47,7 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, 
                   <div className="flex flex-wrap items-center gap-2 text-xs font-medium text-slate-400 sm:text-sm">
                     {metadata ?? (
                       <>
-                        <span>Nigerian Contents</span>
+                        <span>Nigerian Content</span>
                         <span className="text-slate-600">•</span>
                         <span>
                           {new Date().toLocaleDateString('en-NG', {

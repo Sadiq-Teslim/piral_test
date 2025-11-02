@@ -48,7 +48,7 @@ A polished microfrontend (pilet) for the Piral framework that showcases a Nigeri
    npm run debug
    ```
 
-   The Piral CLI starts the emulator at [http://localhost:1234](http://localhost:1234) with a **Dashboard** menu entry.
+  The Piral CLI starts the emulator at [http://localhost:1234/dashboard](http://localhost:1234/dashboard); the top navigation also includes a **Dashboard** menu entry.
 
 ---
 
